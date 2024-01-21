@@ -13,4 +13,5 @@ Configure the script to your likings.
 
 > ### Find more premium scripts on our store
 > https://kuzquality.com/
+>
 > https://discord.gg/fZsyam7Rvz
