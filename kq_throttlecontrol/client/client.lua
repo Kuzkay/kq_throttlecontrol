@@ -18,7 +18,6 @@ local function TriggerThrottleControl()
             end
             Wait(sleep)
         end
-        print('rip loop')
     end)
 end
 
@@ -32,14 +31,12 @@ RegisterCommand('+throttlecontrol', function()
             -- enables the throttle control loop and calls the function
             enabled = true
             TriggerThrottleControl()
-            print('enabled')
         end
     end
 end, false)
 
 RegisterCommand('-throttlecontrol', function()
     -- disables the throttle control loop
-    print('disabled')
     enabled = false
 end, false)
 
