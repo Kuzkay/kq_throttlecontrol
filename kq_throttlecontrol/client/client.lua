@@ -5,22 +5,20 @@ local enabled = false
 local function TriggerThrottleControl()
     CreateThread(function()
         while enabled do
-            local playerPed = PlayerPedId()
+            local veh = GetVehiclePedIsIn(PlayerPedId())
             sleep = 50
-            if IsPedInAnyVehicle(playerPed) then
-                local veh = GetVehiclePedIsIn(playerPed)
-                if math.abs(GetVehicleThrottleOffset(veh)) > 0.3 and GetEntitySpeed(veh) * 3.6 <= maxSpeed then
-                    sleep = 1
+            if math.abs(GetVehicleThrottleOffset(veh)) > 0.3 and GetEntitySpeed(veh) * 3.6 <= maxSpeed then
+                sleep = 1
 
-                    local rpm = GetVehicleCurrentRpm(veh)
+                local rpm = GetVehicleCurrentRpm(veh)
 
-                    if rpm > maxRpm then
-                        SetVehicleCurrentRpm(veh, maxRpm)
-                    end
+                if rpm > maxRpm then
+                    SetVehicleCurrentRpm(veh, maxRpm)
                 end
             end
             Wait(sleep)
         end
+        print('rip loop')
     end)
 end
 
