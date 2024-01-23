@@ -11,7 +11,6 @@ Config.maxSpeed = 80
 -- Use the input index for the "input" value
 Config.keybinds = {
     slow = {
-        label = 'Shift',
-        input = 21,
+        input = 'lshift',
     }
 }
