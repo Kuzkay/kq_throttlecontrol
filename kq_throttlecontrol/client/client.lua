@@ -40,4 +40,4 @@ RegisterCommand('-throttlecontrol', function()
     enabled = false
 end, false)
 
-RegisterKeyMapping('+throttlecontrol', 'Throttle Control', 'keyboard', Config.keybinds.slow.input)
+RegisterKeyMapping('+throttlecontrol', 'Use smooth throttle control', 'keyboard', Config.keybinds.slow.input)
