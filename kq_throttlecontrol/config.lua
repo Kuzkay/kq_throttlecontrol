@@ -2,9 +2,9 @@ Config = {}
 
 Config.maxRpm = 0.2                                -- Max RPM
 
-Config.maxSpeed = 10                               -- The Throttle Control will not affect the vehicles which drive over this speed
+Config.maxSpeed = 80                               -- The Throttle Control will not affect the vehicles which drive over this speed
 
-Config.defaultsmoothing = false                    -- If true then Config.keybinds will disable Throttle Control and will be applied by default, if false then won't be applied by default and Config.keybinds will enable it.
+Config.defaultSmoothing = false                    -- If true then Config.keybinds will disable Throttle Control and will be applied by default, if false then won't be applied by default and Config.keybinds will enable it.
 
 Config.keybinds = {
     slow = {
