@@ -2,7 +2,7 @@ fx_version 'cerulean'
 games { 'gta5' }
 lua54 'yes'
 
-author 'KuzQuality | Kuzkay'
+author 'KuzQuality | Kuzkay | Monarch Matrix'
 description 'Throttle control by KuzQuality.com'
 version '1.0.0'
 

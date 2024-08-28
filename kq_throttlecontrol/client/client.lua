@@ -1,43 +1,44 @@
 local maxRpm = Config.maxRpm
 local maxSpeed = Config.maxSpeed
-local enabled = false
+local ThrottleControlEnabled = Config.defaultsmoothing  -- Set based on defaultsmoothing
+local allowedClasses = Config.allowedClasses
 
 local function TriggerThrottleControl()
     CreateThread(function()
-        while enabled do
-            local veh = GetVehiclePedIsIn(PlayerPedId())
-            sleep = 50
-            if math.abs(GetVehicleThrottleOffset(veh)) > 0.3 and GetEntitySpeed(veh) * 3.6 <= maxSpeed then
-                sleep = 1
-
-                local rpm = GetVehicleCurrentRpm(veh)
-
-                if rpm > maxRpm then
-                    SetVehicleCurrentRpm(veh, maxRpm)
+        while true do
+            if ThrottleControlEnabled then
+                local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+                local sleepDuration = 50
+                if vehicle and DoesEntityExist(vehicle) then
+                    local vehicleClass = GetVehicleClass(vehicle)
+                    if allowedClasses[vehicleClass] then
+                        local vehicleSpeed = GetEntitySpeed(vehicle) * 3.6
+                        local throttleOffset = math.abs(GetVehicleThrottleOffset(vehicle))
+                        if throttleOffset > 0.3 and vehicleSpeed <= maxSpeed then
+                            sleepDuration = 1
+                            local currentRpm = GetVehicleCurrentRpm(vehicle)
+                            if currentRpm > maxRpm then
+                                SetVehicleCurrentRpm(vehicle, maxRpm)
+                            end
+                        end
+                    end
                 end
+                Wait(sleepDuration)
+            else
+                Wait(100)
             end
-            Wait(sleep)
         end
     end)
 end
 
 RegisterCommand('+throttlecontrol', function()
-    local playerPed = PlayerPedId()
-    if IsPedInAnyVehicle(playerPed) then
-        local veh = GetVehiclePedIsIn(playerPed)
-
-        -- Whether or not the ped is the driver
-        if GetPedInVehicleSeat(veh, -1) == playerPed then
-            -- enables the throttle control loop and calls the function
-            enabled = true
-            TriggerThrottleControl()
-        end
-    end
+    ThrottleControlEnabled = not Config.defaultsmoothing
 end, false)
 
 RegisterCommand('-throttlecontrol', function()
-    -- disables the throttle control loop
-    enabled = false
+    ThrottleControlEnabled = Config.defaultsmoothing
 end, false)
 
-RegisterKeyMapping('+throttlecontrol', 'Use smooth throttle control', 'keyboard', Config.keybinds.slow.input)
+TriggerThrottleControl()
+
+RegisterKeyMapping('+throttlecontrol', 'Disable/Enable throttle control while holding depending on config', 'keyboard', Config.keybinds.slow.input)
