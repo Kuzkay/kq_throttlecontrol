@@ -1,12 +1,12 @@
 local maxRpm = Config.maxRpm
 local maxSpeed = Config.maxSpeed
-local ThrottleControlEnabled = Config.defaultsmoothing  -- Set based on defaultsmoothing
+local throttleControlEnabled = Config.defaultSmoothing  -- Set based on defaultSmoothing
 local allowedClasses = Config.allowedClasses
 
 local function TriggerThrottleControl()
     CreateThread(function()
         while true do
-            if ThrottleControlEnabled then
+            if throttleControlEnabled then
                 local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
                 local sleepDuration = 50
                 if vehicle and DoesEntityExist(vehicle) then
@@ -32,11 +32,11 @@ local function TriggerThrottleControl()
 end
 
 RegisterCommand('+throttlecontrol', function()
-    ThrottleControlEnabled = not Config.defaultsmoothing
+    throttleControlEnabled = not Config.defaultSmoothing
 end, false)
 
 RegisterCommand('-throttlecontrol', function()
-    ThrottleControlEnabled = Config.defaultsmoothing
+    throttleControlEnabled = Config.defaultSmoothing
 end, false)
 
 TriggerThrottleControl()
